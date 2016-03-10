@@ -10,7 +10,7 @@ public class PreconditionsTest {
 
     public static void main(String[] args) {
 //        test1();
-        test2();
+//        test2();
         test3();
         test4();
         test5();
@@ -31,6 +31,9 @@ public class PreconditionsTest {
 
     }
 
+    /**
+     * 最重要的方法
+     */
     static void test2() {
         String str = "abc";
         String str2 = null;
@@ -43,22 +46,24 @@ public class PreconditionsTest {
     }
 
     static void test3() {
-//用来检查对象的某些状态。	IllegalStateException
-//        Preconditions.checkState(boolean);
+        //用来检查对象的某些状态。	IllegalStateException
+        Preconditions.checkState(true);
 
 
     }
 
     static void test4() {
-        //检查index作为索引值对某个列表、字符串或数组是否有效。index>=0 && index<size *	IndexOutOfBoundsException
-//        Preconditions.checkElementIndex(int index, int size);
+        // 检查index作为索引值对某个列表、字符串或数组是否有效。 *	IndexOutOfBoundsException
+        // index>=0 && index<size
+        Preconditions.checkElementIndex(2, 4);
 
 
     }
 
     static void test5() {
-//检查index作为位置值对某个列表、字符串或数组是否有效。index>=0 && index<=size *	IndexOutOfBoundsException
-//        Preconditions.checkPositionIndex(int index, int size);
+        //检查index作为位置值对某个列表、字符串或数组是否有效。index>=0 && index<=size *	IndexOutOfBoundsException
+        // index>=0 && index<=size
+        Preconditions.checkPositionIndex(1,2);
 
 
     }
