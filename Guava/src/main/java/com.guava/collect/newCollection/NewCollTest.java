@@ -141,7 +141,9 @@ public class NewCollTest {
 //        keySet用Set表示Multimap中所有不同的键。
 //        keys用Multiset表示Multimap中的所有键，每个键重复出现的次数等于它映射的值的个数。可以从这个Multiset中移除元素，但不能做添加操作；移除操作会反映到底层的Multimap。
 //        values()用一个”扁平”的Collection<V>包含Multimap中的所有值。这有一点类似于Iterables.concat(multimap.asMap().values())，但它直接返回了单个Collection，而不像multimap.asMap().values()那样是按键区分开的Collection。
-
+        for (String str : listMultimap.keySet()) {
+            
+        }
 
 
     }
