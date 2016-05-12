@@ -5,6 +5,8 @@ import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
+import java.util.Set;
+
 /**
  * Created by home
  * date 2016/3/9.
@@ -15,14 +17,14 @@ public class OptionalTest {
 
     public static void main(String[] args) {
 //        test1();
-//        test2();
-        test3();
+        test2();
+//        test3();
     }
 
     static void test1(){
         Optional<Integer> possible = Optional.of(5);
-        System.out.println(possible.isPresent());
-        System.out.println(possible.get());
+        System.out.println(possible.isPresent());//true
+        System.out.println(possible.get());//5
 
     }
 
@@ -40,29 +42,30 @@ public class OptionalTest {
 
         /*用Optional实例查询引用（以下都是非静态方法）：*/
         //如果Optional包含非null的引用（引用存在），返回true
-        System.out.println("optional1 isPresent " + optional1.isPresent());
-        System.out.println("optional2 isPresent " + optional2.isPresent());
-        System.out.println("optional3 isPresent " + optional3.isPresent());
+        System.out.println("optional1 isPresent " + optional1.isPresent());//true
+        System.out.println("optional2 isPresent " + optional2.isPresent());//false
+        System.out.println("optional3 isPresent " + optional3.isPresent());//true
 
         //返回Optional所包含的引用，若引用缺失，则抛出java.lang.IllegalStateException
-        System.out.println("optional1 get " + optional1.get());
+        System.out.println("optional1 get " + optional1.get());//5
 //        System.out.println("optional2 get " + optional2.get());
-        System.out.println("optional3 get " + optional3.get());
+        System.out.println("optional3 get " + optional3.get());//5
 
 
         //返回Optional所包含的引用，若引用缺失，返回指定的值
-        System.out.println("optional1 or " + optional1.or(99));
-        System.out.println("optional2 or " + optional2.or(99));
-        System.out.println("optional3 or " + optional3.or(99));
+        System.out.println("optional1 or " + optional1.or(99));//5
+        System.out.println("optional2 or " + optional2.or(99));//99
+        System.out.println("optional3 or " + optional3.or(99));//5
 
         //返回Optional所包含的引用，若引用缺失，返回null
-        System.out.println("optional1 orNull " + optional1.orNull());
-        System.out.println("optional2 orNull " + optional2.orNull());
-        System.out.println("optional3 orNull " + optional3.orNull());
+        System.out.println("optional1 orNull " + optional1.orNull());//5
+        System.out.println("optional2 orNull " + optional2.orNull());//null
+        System.out.println("optional3 orNull " + optional3.orNull());//5
 
         //返回Optional所包含引用的单例不可变集，如果引用存在，返回一个只有单一元素的集合，如果引用缺失，返回一个空集合。
-//        Set<T> asSet();
-
+        System.out.println(optional1.asSet().isEmpty());//false
+        System.out.println(optional2.asSet().isEmpty());//true
+        System.out.println(optional3.asSet().isEmpty());//false
 
     }
 

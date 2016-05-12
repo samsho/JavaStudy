@@ -26,9 +26,12 @@ import java.util.concurrent.*;
 public class CacheTest {
     public static void main(String[] args) throws ExecutionException {
 //        test1();
-        test2();
+//        test2();
 //        test3();
 //        test4();
+//        test5();
+//        test6();
+        test7();
     }
 
     /**
@@ -79,6 +82,8 @@ public class CacheTest {
         System.out.println(loadingCache.get("key1"));//  key = key1  Hello Cache
         System.out.println(loadingCache.get("key1"));//  Hello Cache
         System.out.println(loadingCache.getUnchecked("key2"));//与异常有关
+
+
 
 
         /**
@@ -228,5 +233,36 @@ public class CacheTest {
         cache.asMap().values();
     }
 
+    public static void test6() {
+        Cache<String, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<String, String>() {
+            @Override
+            public String load(String key) throws Exception {
+                return "查询了去";
+            }
+        });
+
+        cache.put("a", "a");
+
+
+        System.out.println(cache.getIfPresent("a"));
+        System.out.println(cache.getIfPresent("b"));//不会去查
+
+    }
+
+    public static void test7() throws ExecutionException {
+        LoadingCache<String, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<String, String>() {
+            @Override
+            public String load(String key) throws Exception {
+                return "查询了去";
+            }
+        });
+
+        cache.put("a","a");
+
+
+        System.out.println(cache.getIfPresent("a"));
+        System.out.println(cache.get("b"));//不会去查
+
+    }
 
 }
