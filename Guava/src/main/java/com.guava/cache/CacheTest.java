@@ -226,9 +226,6 @@ public class CacheTest {
          比如，遍历Cache.asMap().entrySet()不会重置缓存项的读取时间。
          **/
         cache.asMap().values();
-
-
-
     }
 
 

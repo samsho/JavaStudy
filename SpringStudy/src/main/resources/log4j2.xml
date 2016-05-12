@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration>
     <Properties>
-        <Property name="log.dir">/data/logs/JavaStudy/SpringStudy</Property>
+        <Property name="log.dir">/myLogs/JavaStudy/SpringStudy</Property>
     </Properties>
 
     <Appenders>

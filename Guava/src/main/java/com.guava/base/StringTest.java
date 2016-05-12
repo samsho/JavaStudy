@@ -18,29 +18,29 @@ public class StringTest {
 //        test1();
 //        test2();
 //        test3();
-//        test4();
+        test4();
 //        test5();
-        test6();
+//        test6();
     }
 
     /**
      * Strings
      */
     static void test1(){
-        Strings.emptyToNull("");
-        Strings.nullToEmpty("");
-        Strings.isNullOrEmpty("");
+        System.out.println(Strings.emptyToNull(""));//null
+        System.out.println(Strings.nullToEmpty(null));
+        System.out.println(Strings.isNullOrEmpty(""));//true
 
 
         // padStart("7", 3, '0') "007"
         // padStart("2010", 3, '0') "2010"
-        Strings.padStart("7", 3, '0');
-        Strings.padStart("2010", 3, '0');
+        System.out.println(Strings.padStart("7", 3, '0'));//007
+        System.out.println(Strings.padStart("2010", 3, '0'));//2010
 
         // padEnd("4.", 5, '0') "4.000"
-        // padEnd("2010", 3, '!') "2010"
-        Strings.padEnd("4.", 5, '0');
-        Strings.padEnd("2010.", 5, '0');
+        // padEnd("2010", 3, '!') "2010."
+        System.out.println(Strings.padEnd("4.", 5, '0'));//4.000
+        System.out.println(Strings.padEnd("2010.", 6, '0'));//2010.0
     }
 
     /**
@@ -48,14 +48,14 @@ public class StringTest {
      *
      */
     static void test2(){
-        System.out.println(Splitter.on(',').split("foo,bar,qux"));
-        System.out.println(Splitter.on(',').splitToList("foo,bar,qux"));
+        System.out.println(Splitter.on(',').split("foo,bar,qux"));//[foo, bar, qux]
+        System.out.println(Splitter.on(',').splitToList("foo,bar,qux"));//[foo, bar, qux]
 
         System.out.println(Splitter.on(',')
                 .trimResults()//移除结果字符串的前导空白和尾部空白
                 .omitEmptyStrings()//从结果中自动忽略空字符串
                 .limit(2)//限制拆分出的字符串数量
-                .split("foo,bar,,   qux"));
+                .split("foo,bar,,   qux"));//[foo, bar,,   qux]
 
         Lists.newArrayList(Splitter.on(',').split("foo,bar,qux"));
     }
@@ -85,13 +85,19 @@ public class StringTest {
     static void test4(){
 
         String noControl = CharMatcher.JAVA_ISO_CONTROL.removeFrom(""); //移除control字符
-        String theDigits = CharMatcher.DIGIT.retainFrom(""); //只保留数字字符
+        String theDigits = CharMatcher.DIGIT.retainFrom("a10,er,kk;45"); //只保留数字字符
+        System.out.println(theDigits);//1045
 
         //去除两端的空格，并把中间的连续空格替换成单个空格
-        String spaced = CharMatcher.WHITESPACE.trimAndCollapseFrom("", ' ');
-        String noDigits = CharMatcher.JAVA_DIGIT.replaceFrom("", "*"); //用*号替换所有数字
+        String spaced = CharMatcher.WHITESPACE.trimAndCollapseFrom(" hello trim nijij ", ' ');
+        System.out.println(spaced);//hello trim nijij
+
+        String noDigits = CharMatcher.JAVA_DIGIT.replaceFrom("df1f23gh45ghj6fgh", "*"); //用*号替换所有数字
+        System.out.println(noDigits);//df*f**gh**ghj*fgh
+
         // 只保留数字和小写字母
-        String lowerAndDigit = CharMatcher.JAVA_DIGIT.or(CharMatcher.JAVA_LOWER_CASE).retainFrom("");
+        String lowerAndDigit = CharMatcher.JAVA_DIGIT.or(CharMatcher.JAVA_LOWER_CASE).retainFrom("AAAabfh17665jhhsAAAGHJ");
+        System.out.println(lowerAndDigit);//abfh17665jhhs
     }
 
     /**

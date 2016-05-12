@@ -20,6 +20,7 @@ public class ImmutableTest {
 //        test1();
 //        test2();
         test3();
+//        test4();
     }
 
     /**
@@ -35,31 +36,34 @@ public class ImmutableTest {
         list.add("a");
         list.add("b");
         list.add("c");
-        System.out.println("list：" + list);
+        System.out.println("list：" + list);//list：[a, b, c]
 
+        // 用copyOf方法
         ImmutableList<String> imlist = ImmutableList.copyOf(list);//defensive copy
-        System.out.println("imlist：" + imlist);
+        System.out.println("imlist：" + imlist);//imlist：[a, b, c]
 
+        // 使用of方法
         ImmutableList<String> imOflist = ImmutableList.of("peida", "jerry", "harry");
-        System.out.println("imOflist：" + imOflist);
-
+        System.out.println("imOflist：" + imOflist);//imOflist：[peida, jerry, harry]
+        // 对有序不可变集合来说
         ImmutableSortedSet<String> imSortList = ImmutableSortedSet.of("a", "b", "c", "a", "d", "b");
-        System.out.println("imSortList：" + imSortList);
+        System.out.println("imSortList：" + imSortList);//imSortList：[a, b, c, d]
 
         list.add("baby");
-        System.out.println("list add a item after list:" + list);
-        System.out.println("list add a item after imlist:" + imlist);
+        System.out.println("list add a item after list:" + list);//[a, b, c, baby]
+        System.out.println("list add a item after imlist:" + imlist);//[a, b, c],不可变
 
         list.clear();
-        System.out.println("list add a item after list:" + list);
-        System.out.println("list add a item after imlist:" + imlist);
+        System.out.println("list add a item after list:" + list);//[]
+        System.out.println("list add a item after imlist:" + imlist);//[a, b, c]
 
+        // 使用Builder类
         ImmutableSet<Color> imColorSet = ImmutableSet.<Color>builder()
                 .add(new Color(0, 255, 255))
                 .add(new Color(0, 191, 255))
                 .build();
 
-        System.out.println("imColorSet:" + imColorSet);
+        System.out.println("imColorSet:" + imColorSet);//[java.awt.Color[r=0,g=255,b=255], java.awt.Color[r=0,g=191,b=255]]
     }
 
     public static void test2() {
@@ -70,13 +74,10 @@ public class ImmutableTest {
 
         ImmutableList<String> imlist = ImmutableList.copyOf(list);//defensive copy
 
-        System.out.println(imlist.get(1));
-        System.out.println(imlist.asList());
-        System.out.println(imlist.asList().get(2));
-        System.out.println(imlist.reverse().asList());
-
-
-
+        System.out.println(imlist.get(1));//b
+        System.out.println(imlist.asList());//[a, b, c]
+        System.out.println(imlist.asList().get(2));//c
+        System.out.println(imlist.reverse().asList());//[c, b, a]
     }
 
     public static void test3() {
@@ -87,12 +88,16 @@ public class ImmutableTest {
                 .add("c")
                 .add("b")
                 .build();
-        System.out.println("imColorSet:" + imColorSet);
-        System.out.println(imColorSet.asList().get(2));// set转成list
+        System.out.println("imColorSet:" + imColorSet);//imColorSet:[a, f, d, c, b]
+        System.out.println(imColorSet.asList().get(2));// set转成list,d
     }
 
+    /**
+     * 对有序不可变集合来说
+     */
     public static void test4() {
-
+        ImmutableSortedSet<String> sortedSet = ImmutableSortedSet.of("a", "b", "c", "a", "d", "b");
+        System.out.println(sortedSet);//[a, b, c, d]
     }
 
 }

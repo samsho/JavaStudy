@@ -51,7 +51,7 @@ public class ObjectsTest {
      * toStringHelper
      */
     static void test4() {
-        // Returns "ClassName{x=1}"
+        // Presider{name=sam}
         System.out.println(MoreObjects.toStringHelper(Presider.class).add("name", "sam"));
 
         // Returns "MyObject{x=1}"
