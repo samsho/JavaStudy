@@ -19,8 +19,8 @@ public class NewCollTest {
 //        test1();
 //        test2();
 //        test3();
-//        test4();
-        test5();
+        test4();
+//        test5();
     }
 
     /**
@@ -206,6 +206,7 @@ public class NewCollTest {
         System.out.println(baseTable.row("v1"));//{v4=30, v3=20, v2=4}
 
         // 类似的列访问方法：columnMap()、columnKeySet()、column(c)。（基于列的访问会比基于的行访问稍微低效点）
+        System.out.println("++++++++++++++++++++++"  +  baseTable.get("v1", "v3"));
 
 
         // cellSet()：用元素类型为Table.Cell<R, C, V>的Set表现Table<R, C, V>。Cell类似于Map.Entry，但它是用行和列两个键区分的。

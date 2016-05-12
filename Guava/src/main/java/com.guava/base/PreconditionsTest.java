@@ -9,12 +9,12 @@ import com.google.common.base.Preconditions;
 public class PreconditionsTest {
 
     public static void main(String[] args) {
-//        test1();
+        test1();
 //        test2();
-        test3();
-        test4();
-        test5();
-        test6();
+//        test3();
+//        test4();
+//        test5();
+//        test6();
     }
 
     static void test1() {
@@ -27,7 +27,7 @@ public class PreconditionsTest {
         //检查boolean是否为true，用来检查传递给方法的参数。	IllegalArgumentException
         Preconditions.checkArgument(exp1);
         Preconditions.checkArgument(exp1, "打印的错误信息");
-        Preconditions.checkArgument(exp2, "打印的错误信息： %s", "【嵌入信息】", "[信息2]");
+        Preconditions.checkArgument(exp2, "打印的错误信息： %s", "【嵌入信息】", "[嵌入信息2]");
 
     }
 
