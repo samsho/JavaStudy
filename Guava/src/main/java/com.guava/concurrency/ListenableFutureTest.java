@@ -1,22 +1,33 @@
 package com.guava.concurrency;
 
-import com.google.common.util.concurrent.*;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListenableFutureTask;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
- * Created by home
- * date 2016/3/12.
+ * Guava Future
  */
 public class ListenableFutureTest {
 
     public static void main(String[] args) throws Exception {
-        test1();
+//        test1();
+        test2();
     }
 
     static void test1() throws ExecutionException, InterruptedException {
 
         /** juc包的使用**/
+        /*方式一：Future*/
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(new Callable<String>(){
             public String call() throws Exception {
@@ -24,16 +35,17 @@ public class ListenableFutureTest {
                 return "hello";
             }
         });
-        future.get();
+        System.out.println(future.get());// hello
 
+        /*方式二：FutureTask*/
         FutureTask<String> futureTask = new  FutureTask<String>(new Callable<String>() {
             public String call() throws Exception {
-                Thread.sleep(2000);
+                Thread.sleep(200);
                 return "hello";
             }
         });
         executor.submit(futureTask);
-        futureTask.get();
+        System.out.println(futureTask.get());// hello
     }
 
     /**
@@ -53,6 +65,7 @@ public class ListenableFutureTest {
         Futures.addCallback(listenableFuture, new FutureCallback() {
             // we want this handler to run immediately after we push the big red button!
             public void onSuccess(Object result) {
+                System.out.println(result);
             }
             public void onFailure(Throwable thrown) {
             }
@@ -66,11 +79,18 @@ public class ListenableFutureTest {
          */
         ListenableFutureTask<String> listenableFutureTask =  ListenableFutureTask.create(new Callable<String>() {
             public String call() throws Exception {
-                return "Guava ";
+                return "Guava ListenableFutureTask";
             }
         });
         service.submit(listenableFutureTask);
         listenableFutureTask.get();
+        Futures.addCallback(listenableFutureTask, new FutureCallback<String>() {
+            public void onSuccess(String result) {
+                System.out.println(result);
+            }
+            public void onFailure(Throwable thrown) {
+            }
+        });
     }
 
     static void test3() {
