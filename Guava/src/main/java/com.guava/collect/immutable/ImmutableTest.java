@@ -73,7 +73,6 @@ public class ImmutableTest {
         list.add("c");
 
         ImmutableList<String> imlist = ImmutableList.copyOf(list);//defensive copy
-
         System.out.println(imlist.get(1));//b
         System.out.println(imlist.asList());//[a, b, c]
         System.out.println(imlist.asList().get(2));//c

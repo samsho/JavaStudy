@@ -135,17 +135,27 @@ public class NewCollTest {
 
 //        entries用Collection<Map.Entry<K, V>>返回Multimap中所有”键-单个值映射”——包括重复键。（对SetMultimap，返回的是Set）
         for (Map.Entry<String, String> entry : listMultimap.entries()) {
-            System.out.print(entry.getKey() + ":" + entry.getValue() + "  ");//A++4  a++1  a++2
+            System.out.print(entry.getKey() + ":" + entry.getValue() + "  ");//a:1  a:2  A:4
         }
 
 //        keySet用Set表示Multimap中所有不同的键。
-//        keys用Multiset表示Multimap中的所有键，每个键重复出现的次数等于它映射的值的个数。可以从这个Multiset中移除元素，但不能做添加操作；移除操作会反映到底层的Multimap。
-//        values()用一个”扁平”的Collection<V>包含Multimap中的所有值。这有一点类似于Iterables.concat(multimap.asMap().values())，但它直接返回了单个Collection，而不像multimap.asMap().values()那样是按键区分开的Collection。
         for (String str : listMultimap.keySet()) {
-            
+            System.out.println("keySet = " +  str);// keySet = a keySet = A
+        }
+
+//        keys用Multiset表示Multimap中的所有键，每个键重复出现的次数等于它映射的值的个数。可以从这个Multiset中移除元素，
+//        但不能做添加操作；移除操作会反映到底层的Multimap。
+        for (String str : listMultimap.keys()) {
+            System.out.println("keys = " +  str);// keys = a keys = a keys = A
         }
 
 
+//        values()用一个”扁平”的Collection<V>包含Multimap中的所有值。
+//        这有一点类似于Iterables.concat(multimap.asMap().values())，但它直接返回了单个Collection，
+//        而不像multimap.asMap().values()那样是按键区分开的Collection。
+        for (String s : listMultimap.values()) {
+            System.out.println("values = " +  s);// values = 1 values = 2 values = 4
+        }
     }
 
     /**
@@ -163,12 +173,14 @@ public class NewCollTest {
         idToName.put(42, "Bob");
 
 
-        /*                */
+        /* BiMap实现 */
         BiMap<String, Integer> biMap  = HashBiMap.create();
         biMap.put("Bob",42);
         System.out.println(biMap);//{Bob=42}
         BiMap<Integer, String> biMap2 = biMap.inverse();//翻转
         System.out.println(biMap2);//{42=Bob}
+
+
         biMap.put("Bob", 45);//替换值
         System.out.println(biMap);//{Bob=45}
 
@@ -206,7 +218,10 @@ public class NewCollTest {
         System.out.println(baseTable.row("v1"));//{v4=30, v3=20, v2=4}
 
         // 类似的列访问方法：columnMap()、columnKeySet()、column(c)。（基于列的访问会比基于的行访问稍微低效点）
-        System.out.println("++++++++++++++++++++++"  +  baseTable.get("v1", "v3"));
+        System.out.println("++++++++++++++++++++++"  +  baseTable.get("v1", "v3"));//20
+        System.out.println("++ columnMap ++ : " +  baseTable.columnMap());// {v2={v1=4}, v3={v1=20, v2=5}, v4={v1=30}}
+        System.out.println("++ column ++ : " +  baseTable.column("v2"));//{v1=4}
+        System.out.println("++ columnKeySet ++ : " +  baseTable.columnKeySet());//[v2, v3, v4]
 
 
         // cellSet()：用元素类型为Table.Cell<R, C, V>的Set表现Table<R, C, V>。Cell类似于Map.Entry，但它是用行和列两个键区分的。
