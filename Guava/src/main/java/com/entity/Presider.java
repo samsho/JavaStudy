@@ -26,7 +26,12 @@ public class Presider implements Serializable {
 
     public Presider() {}
 
-    public int getId() {
+	public Presider(String name, String jobNumber) {
+		this.name = name;
+		this.jobNumber = jobNumber;
+	}
+
+	public int getId() {
         return id;
     }
 
