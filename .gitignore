@@ -1,3 +1,4 @@
+/Thread/Thraed.iml
 /Guava/.idea
 /.idea
 # Created by .ignore support plugin (hsz.mobi)
@@ -8,7 +9,12 @@
 .mtj.tmp/
 
 # Package Files #
-/Guava/.idea
+/JavaBase/.idea
+/JavaBase/JavaBase.iml
+/Thread/target
+/Thread/.idea
+/Thread/Thread.iml
+
 *.jar
 *.war
 *.ear
