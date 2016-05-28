@@ -1,5 +1,8 @@
 package com.thread.masterworker;
 
+import java.util.Map;
+import java.util.Queue;
+
 /**
  * ClassName: Worker
  * Description:
@@ -23,10 +26,9 @@ public class Worker implements Runnable {
 
 
     public Object handle(Object input) {
-        return input
+        return null;
     }
 
-    @Override
     public void run() {
         while(true) {
             workQueue.poll();
