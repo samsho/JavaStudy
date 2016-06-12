@@ -45,7 +45,7 @@ public class CallableAndFuture {
 		System.out.println("等待结果");
 		try {
 			System.out.println("拿到结果: "+future.get());//拿到结果，拿不到的时候会一直等...
-//			System.out.println("拿到结果: "+future.get(timeout, unit)get());
+//			System.out.println("拿到结果: "+design.get(timeout, unit)get());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {

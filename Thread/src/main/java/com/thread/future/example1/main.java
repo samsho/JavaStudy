@@ -25,7 +25,7 @@ public class main {
     }
 
     private static void sampleSubmit() throws InterruptedException, ExecutionException {
-        FutureTask<String> future = new  FutureTask<String>(new RealData("future"));
+        FutureTask<String> future = new  FutureTask<String>(new RealData("design"));
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         executorService.submit(future);
 
