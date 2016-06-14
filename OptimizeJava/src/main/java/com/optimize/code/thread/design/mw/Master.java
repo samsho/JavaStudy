@@ -18,10 +18,8 @@ public class Master {
 
     // 任务队列
     protected Queue<Object> workQueue = new ConcurrentLinkedQueue<Object>();
-
-    // worker 进程队列
+    // worker 线程队列
     protected Map<String, Thread> threadMap = new HashMap<String, Thread>();
-
     // 子任务处理处理结果集
     protected Map<String, Object> resultMap = new ConcurrentHashMap<String, Object>();
 
@@ -32,7 +30,6 @@ public class Master {
      * @return
      */
     public boolean isComplete() {
-
         for (Map.Entry<String, Thread> entry : threadMap.entrySet()) {
             if (entry.getValue().getState() != Thread.State.TERMINATED) {
                 return false;

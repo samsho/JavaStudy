@@ -5,7 +5,7 @@ import java.util.Queue;
 
 /**
  * ClassName: Worker
- * Description:
+ * Description: 具体处理业务的线程
  * Date: 2016/6/12 21:31
  *
  * @author SAM SHO
@@ -15,7 +15,6 @@ public class Worker implements Runnable {
 
     // 任务队列，用于获取子任务
     protected Queue<Object> workQueue;
-
     // 子任务处理处理结果集
     protected Map<String, Object> resultMap;
 

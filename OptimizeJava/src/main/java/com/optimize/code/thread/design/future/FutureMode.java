@@ -37,8 +37,7 @@ public class FutureMode {
         }
 
         public String call() throws Exception {
-
-            //
+            // 系统任务
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 10; i++) {
                 sb.append(i);
