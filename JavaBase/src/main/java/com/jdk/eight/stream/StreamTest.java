@@ -102,6 +102,6 @@ public class StreamTest {
 
         new ArrayList<String>().stream().collect(Collectors.toSet());
 
-        new ArrayList<String>().stream().collect(Collectors.toMap(String::toUpperCase, String::toLowerCase))
+        new ArrayList<String>().stream().collect(Collectors.toMap(String::toUpperCase, String::toLowerCase));
     }
 }
