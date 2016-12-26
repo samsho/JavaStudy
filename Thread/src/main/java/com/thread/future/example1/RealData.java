@@ -17,7 +17,7 @@ public class RealData implements Callable<String>{
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < 10; i++) {
             sb.append(para);
-            Thread.sleep(200);
+            Thread.sleep(1000);
         }
         return sb.toString();
     }

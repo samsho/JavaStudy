@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -78,7 +79,7 @@ public class StreamTest {
         new ArrayList<>().stream().filter(t -> t.equals("1"));
 
         // map方法: map方法实际上是对集合中的所有元素执行某些变换操作，并生成新的Stream方法
-        new ArrayList<String>().stream().map(t -> t.toUpperCase());
+        new ArrayList<String>().stream().map(String::toUpperCase);
         new ArrayList<String>().stream().map(String::toUpperCase);
 
 //        取出每个字符串第一个字符的例子
@@ -100,8 +101,8 @@ public class StreamTest {
 
     public void collection() {
 
-        new ArrayList<String>().stream().collect(Collectors.toSet());
+        Set<String> collect = new ArrayList<String>().stream().collect(Collectors.toSet());
 
-        new ArrayList<String>().stream().collect(Collectors.toMap(String::toUpperCase, String::toLowerCase));
+        Map<String, String> collect1 = new ArrayList<String>().stream().collect(Collectors.toMap(String::toUpperCase, String::toLowerCase));
     }
 }

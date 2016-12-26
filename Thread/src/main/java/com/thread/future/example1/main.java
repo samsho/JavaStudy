@@ -9,8 +9,8 @@ import java.util.concurrent.*;
 public class main {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        sampleSubmit();
-        batch();
+        sampleSubmit();
+//        batch();
     }
 
     private static void batch() throws InterruptedException, ExecutionException {
