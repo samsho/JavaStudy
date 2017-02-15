@@ -1,14 +1,16 @@
 package com.jdk.eight.date;
 
-import java.sql.Timestamp;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
-import java.util.Date;
+import java.time.temporal.TemporalAdjusters;
 
 /**
  * ClassName: TimeTest
@@ -25,13 +27,18 @@ public class TimeTest {
     /**
      * 时间线与Instant
      */
-    public void instant() {
+    public void instant() throws InterruptedException {
         //
-        Instant start = Instant.now();//2016-07-07T05:56:28.315Z
-        System.out.println("..........do something");
+        Instant start = Instant.now();
+        System.out.println(start);//2017-02-15T05:26:48.119Z
+        Thread.sleep(2000l);
         Instant end = Instant.now();
+        System.out.println(end);//2017-02-15T05:26:50.193Z
         Duration between = Duration.between(start, end);
-        System.out.println(between);
+        System.out.println(between);//PT2.074S
+
+
+        System.out.println("**********************************");
     }
 
     /**
@@ -40,8 +47,12 @@ public class TimeTest {
      */
     public void localTime() {
 
-        LocalDate today = LocalDate.now();//2016-07-07
-        System.out.println(today);
+        /*初始化*/
+        LocalDate today = LocalDate.now();
+        System.out.println(today);//2017-02-15
+
+        LocalDate now = LocalDate.now(ZoneId.systemDefault());
+        System.out.println(now);//2017-02-15
 
         LocalDate birthDay = LocalDate.of(1989, 7, 16);//1989-07-16
         System.out.println(birthDay);
@@ -49,27 +60,113 @@ public class TimeTest {
         LocalDate dob = LocalDate.of(1989, Month.JULY, 16);//1989-07-16
         System.out.println(dob);
 
-        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDateTime dateTime = LocalDateTime.now();//2017-02-15T13:31:50.042
         System.out.println(dateTime);
+
+        System.out.println(dateTime.toLocalDate());
+        System.out.println(dateTime.toLocalTime());
+        System.out.println("Chronology: " + dateTime.getChronology());
+
+        System.out.println("*********************************************");
+
+        /*LocalDate api*/
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);//2017-02-15
+        System.out.println(localDate.getDayOfWeek());//WEDNESDAY
+        System.out.println(localDate.getDayOfYear());//46，一年中的第几天
+        System.out.println(localDate.getDayOfMonth());//15，一个月中的第几天
+        System.out.println(localDate.getYear());//2017
+        System.out.println(localDate.getMonthValue());//2
+
+        /*简单计算*/
+        System.out.println(localDate.minusDays(20));//2017-01-26
+        System.out.println(localDate.minusMonths(20));//2015-06-15
+        System.out.println(localDate.minusYears(20));//1997-02-15
+        System.out.println(localDate.minusWeeks(20));//2016-09-28
+
+
+        /*Month api*/
+        Month month = localDate.getMonth();
+        System.out.println(month);//FEBRUARY
+        System.out.println(month.getValue());//2
+        System.out.println(month.firstMonthOfQuarter().getValue());//1
+        System.out.println(month.firstDayOfYear(false));//32,所在月的第一天是一年中的第几天
+
+        System.out.println(month.minus(1).getValue());//1, 月份加法
+        System.out.println(month.plus(1).getValue());//3,月份减法
+
+
+        /*DayOfWeek api 也有一些计算*/
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        System.out.println(dayOfWeek);//WEDNESDAY
+        System.out.println(dayOfWeek.plus(2));//FRIDAY
+        System.out.println(dayOfWeek.minus(2));//MONDAY
+
+
     }
 
     /**
      * 日期Adjusters TemporalAdjusters
      * 有时候需要计算类似于“每个月的第一个星期二”这类的需求
+     * 2017-02-21
+     * 1989-07-10
+     * 1
      */
     public void adjusters() {
-        LocalDate today = LocalDate.of(1989, 7, 8);
 
-        TemporalAdjuster NEXT_WORKDAY = w -> {
-            LocalDate result = (LocalDate) w;
-            do {
-                result = result.plusDays(1);
-            } while (result.getDayOfWeek().getValue() >= 6);
-            return result;
-        };
-        LocalDate backToWork = today.with(NEXT_WORKDAY);
-        System.out.println(backToWork);//2016-07-10
-        System.out.println(backToWork.getDayOfWeek().getValue());//1
+        LocalDate today = LocalDate.now();
+        System.out.println(today);//2017-02-15
+
+        /*设置时间*/
+        System.out.println(today.withYear(2018));//2018-02-15,设置年
+        System.out.println(today.withMonth(3));//2017-03-15,设置月
+        System.out.println(today.withDayOfYear(1));//2017-01-01，设置年日
+        System.out.println(today.withDayOfMonth(20));//2017-02-20，设置月日
+
+        System.out.println("**********************************************");
+
+         /*一些 api 使用*/
+        System.out.println(today.with(TemporalAdjusters.firstDayOfYear()));//2017-01-01,今年第一天
+        System.out.println(today.with(TemporalAdjusters.lastDayOfYear()));//2017-12-31，今年最后一天
+
+        System.out.println(today.with(TemporalAdjusters.firstDayOfMonth()));//2017-02-01,本月第一天
+        System.out.println(today.with(TemporalAdjusters.lastDayOfMonth()));//2017-02-28，本月最后一天
+
+        System.out.println(today.with(TemporalAdjusters.firstDayOfNextMonth()));//2017-03-01，下月第一天
+        System.out.println(today.with(TemporalAdjusters.firstDayOfNextYear()));//2018-01-01，下年第一天
+
+        System.out.println(today.with(TemporalAdjusters.firstInMonth(DayOfWeek.TUESDAY)));//2017-02-07，本月第一个周二
+        System.out.println(today.with(TemporalAdjusters.lastInMonth(DayOfWeek.TUESDAY)));//2017-02-28，本月最后一个周二
+        System.out.println(today.with(TemporalAdjusters.dayOfWeekInMonth(5, DayOfWeek.TUESDAY)));//2017-03-07, 本月第5个周二，会跨月
+
+        System.out.println("*********************************************************");
+        /*下一个周二*/
+        /*next 与 nextOrSame 的区别 next会跨越计算，而nextOrSame不会*/
+        today = today.with(TemporalAdjusters.lastInMonth(DayOfWeek.TUESDAY));// 2017-02-28，本月最后一个周二
+        System.out.println(today.with(TemporalAdjusters.next(DayOfWeek.TUESDAY)));//2017-03-07,下一个周二，会跨月
+        LocalDate nextTuesday = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));// 下一个周二，不会跨月
+        System.out.println(nextTuesday);//2017-02-28
+        System.out.println(nextTuesday.getDayOfWeek());//TUESDAY
+
+        /*上一个周二*/
+        System.out.println(today.with(TemporalAdjusters.previous(DayOfWeek.TUESDAY)));
+        System.out.println(today.with(TemporalAdjusters.previousOrSame(DayOfWeek.TUESDAY)));
+
+
+        System.out.println("自定义 ************************************************************");
+        /*下一个工作日, 2017-2-17 是周五*/
+        LocalDate myDate = LocalDate.of(2017, 2, 17).with(new TemporalAdjuster() {
+            @Override
+            public Temporal adjustInto(Temporal temporal) {
+
+                LocalDate localDate = (LocalDate) temporal;//拿到的是今天
+                do {
+                    localDate = localDate.plusDays(1);//加1天
+                } while (localDate.getDayOfWeek().getValue() >= DayOfWeek.SATURDAY.getValue());
+                return localDate;
+            }
+        });
+        System.out.println(myDate);//2017-02-20
 
     }
 
