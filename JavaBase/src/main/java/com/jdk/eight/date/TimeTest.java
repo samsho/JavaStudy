@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -175,12 +176,29 @@ public class TimeTest {
      * DateTimeFormatter
      */
     public void formatter() {
+        DateTimeFormatter formatter;
+        /*date - > string*/
         LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E yyyy-MM-dd HH:mm");
-        System.out.println(dateTime.format(formatter));//星期四 2016-07-07 14:37
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        System.out.println(dateTime.format(formatter));//2016-07-07 14:37
+//
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse("2017-02-16", formatter);
+        System.out.println(dt);
+
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dt2 = LocalDateTime.parse("2017-02-16 12:23:21", formatter);
+        System.out.println(dt2);
+
+
+        LocalDate now = LocalDate.now();
+        System.out.println(LocalDateTime.of(now, LocalTime.MIN));
+
+
     }
 
     public void test() {
+
 /*        Instant<->java.util.Date
         Date.from(instant)
         date.toInstant()
